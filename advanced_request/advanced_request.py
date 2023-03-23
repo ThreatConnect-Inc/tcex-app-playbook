@@ -15,7 +15,7 @@ from ...input.model.advanced_request_model import (  # type: ignore # pylint: di
 )
 from ..playbook import Playbook
 
-# get tcex logger
+# get logger
 _logger = logging.getLogger(__name__.split('.', maxsplit=1)[0])
 
 

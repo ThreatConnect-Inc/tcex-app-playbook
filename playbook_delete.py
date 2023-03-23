@@ -2,12 +2,10 @@
 # standard library
 import logging
 
-from ..app.key_value_store import KeyValueRedis  # type: ignore # pylint: disable=import-error
-from ..app.key_value_store.key_value_store import (  # type: ignore # pylint: disable=import-error
-    KeyValueStore,
-)
+from ...app.key_value_store import KeyValueRedis
+from ...app.key_value_store.key_value_store import KeyValueStore
 
-# get tcex logger
+# get logger
 _logger = logging.getLogger(__name__.split('.', maxsplit=1)[0])
 
 

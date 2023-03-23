@@ -7,17 +7,12 @@ import re
 from collections import OrderedDict
 from typing import Any
 
-from ..app.key_value_store.key_value_store import (  # type: ignore # pylint: disable=import-error
-    KeyValueStore,
-)
-from ..pleb.registry import registry  # type: ignore # pylint: disable=import-error
-from ..util.util import Util  # type: ignore # pylint: disable=import-error
-from ..util.variable import (  # type: ignore # pylint: disable=import-error
-    BinaryVariable,
-    StringVariable,
-)
+from ...app.key_value_store.key_value_store import KeyValueStore
+from ...pleb.registry import registry
+from ...util.util import Util
+from ...util.variable import BinaryVariable, StringVariable
 
-# get tcex logger
+# get logger
 _logger = logging.getLogger(__name__.split('.', maxsplit=1)[0])
 
 
