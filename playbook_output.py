@@ -1,4 +1,4 @@
-"""Playbook ABC"""
+"""TcEx Framework Module"""
 # standard library
 from typing import TYPE_CHECKING
 

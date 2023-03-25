@@ -1,4 +1,4 @@
-"""Playbook delete."""
+"""TcEx Framework Module"""
 # standard library
 import logging
 
@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__.split('.', maxsplit=1)[0])
 
 
 class PlaybookDelete:
-    """Playbook Write ABC"""
+    """Playbook Delete"""
 
     def __init__(self, context: str, key_value_store: KeyValueStore):
         """Initialize the class properties."""

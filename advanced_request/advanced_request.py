@@ -1,4 +1,4 @@
-"""ThreatConnect Exchange App Feature Advanced Request Module"""
+"""TcEx Framework Module"""
 # standard library
 import json
 import logging

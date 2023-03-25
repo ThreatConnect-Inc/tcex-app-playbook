@@ -1,4 +1,4 @@
-"""TcEx Framework Playbook module"""
+"""TcEx Framework Module"""
 # standard library
 import logging
 from functools import cached_property

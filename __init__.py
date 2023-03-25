@@ -1,2 +1,2 @@
-"""Playbooks module for TcEx Framework"""
+"""TcEx Framework Module"""
 from .playbook import Playbook
