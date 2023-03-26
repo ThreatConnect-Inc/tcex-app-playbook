@@ -11,10 +11,10 @@ from requests.exceptions import RequestException
 
 from ...app.playbook import Playbook
 from ...input.model.advanced_request_model import AdvancedRequestModel
-from ...logger.trace_logger import TraceLogger  # pylint: disable=no-name-in-module
+from ...logger.trace_logger import TraceLogger
 
 # get tcex logger
-logger: TraceLogger = logging.getLogger('tcex')  # type: ignore
+_logger: TraceLogger = logging.getLogger(__name__.split('.', maxsplit=1)[0])  # type: ignore
 
 
 class AdvancedRequest:
@@ -47,7 +47,7 @@ class AdvancedRequest:
         self.allow_redirects: bool = True
         self.data: dict | str | None = None
         self.headers: dict = {}
-        self.log = logger
+        self.log = _logger
         self.max_mb: int = 500
         self.mt = MimeTypes()
         self.params: dict = {}
