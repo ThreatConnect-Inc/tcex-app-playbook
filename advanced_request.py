@@ -131,7 +131,7 @@ class AdvancedRequest:
                 url=self.model.tc_adv_req_path,
             )
         except RequestException as ex:  # pragma: no cover
-            raise RuntimeError(f'Exception during request ({ex}).')
+            raise RuntimeError(f'Exception during request ({ex}).') from ex
 
         # write outputs as soon as they are available
         self.playbook.create.variable(
