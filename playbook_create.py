@@ -45,7 +45,7 @@ class PlaybookCreate:
           - not a string (strings are iterable)
           - is Iterable
         """
-        if validate is True and (isinstance(value, (dict, str)) or not isinstance(value, Iterable)):
+        if validate is True and (isinstance(value, dict | str) or not isinstance(value, Iterable)):
             raise RuntimeError('Invalid data provided for KeyValueArray.')
 
     def _check_null(self, key: str, value: Any) -> bool:
@@ -94,7 +94,7 @@ class PlaybookCreate:
             value = str(value).lower()
 
         # coerce int to str type
-        if isinstance(value, (float, int)):
+        if isinstance(value, float | int):
             value = str(value)
 
         return value
@@ -219,10 +219,9 @@ class PlaybookCreate:
         Args:
             key: The variable to write to the DB (e.g., app.colors).
             value: The data to write to the DB.
+            validate: Perform validation on the data.
             variable_type: The variable type being written. Only required if not unique.
-
-        Returns:
-            (str): Result string of DB write.
+            when_requested: Only write the data if the variable was requested by downstream App.
         """
         if self._check_null(key, value) is True:
             return None
@@ -452,7 +451,7 @@ class PlaybookCreate:
             v = self._coerce_string_value(v)
 
             # validation only needs to check str because value was coerced
-            if validate and not isinstance(v, (type(None), str)):
+            if validate and not isinstance(v, type(None) | str):
                 raise RuntimeError('Invalid data provided for StringArray.')
             value_coerced.append(v)
         value = value_coerced

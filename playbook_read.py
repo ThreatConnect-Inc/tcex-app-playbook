@@ -52,7 +52,7 @@ class PlaybookRead:
             value = str(value).lower()
 
         # coerce int to str type
-        if isinstance(value, (float, int)):
+        if isinstance(value, float | int):
             value = str(value)
 
         return value
@@ -229,7 +229,7 @@ class PlaybookRead:
                 )
                 v = '<binary>'
 
-            if isinstance(v, (dict, list)):
+            if isinstance(v, dict | list):
                 v = json.dumps(v)
             elif v is None:
                 v = '<null>'
@@ -626,7 +626,7 @@ class PlaybookRead:
                 value = self._read_embedded(value)
 
         if array is True:
-            if isinstance(value, (list, str)):
+            if isinstance(value, list | str):
                 value = self._to_array(value)
             elif value is None:
                 value = []
