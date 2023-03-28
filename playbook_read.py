@@ -8,7 +8,7 @@ from collections import OrderedDict
 from typing import Any
 
 from ...app.key_value_store.key_value_store import KeyValueStore
-from ...pleb.registry import registry
+from ...registry import registry
 from ...util.util import Util
 from ...util.variable import BinaryVariable, StringVariable
 
