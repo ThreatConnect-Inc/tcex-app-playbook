@@ -239,7 +239,7 @@ class PlaybookRead:
             # value.replace was chosen over re.sub due to an issue encountered while testing an app.
             # re.sub will handle escaped characters like \t, value.replace would not handle these
             # scenarios.
-            if isinstance(v, Sensitive) and value == variable:
+            if isinstance(v, Sensitive) and value_ == variable:
                 # handle when tc variables are embedded in a a playbook variable and the
                 # type is KeyChain. a Sensitive value needs to be returned so that the
                 # developer can control the output of the data, protecting the value.
@@ -248,9 +248,9 @@ class PlaybookRead:
             elif isinstance(v, Sensitive):
                 # alternate to above this handles when tc variables is embedded in a string.
                 # this is NOT recommended, but still supported through this method.
-                value_ = value.replace(variable, v.value)
+                value_ = value_.replace(variable, v.value)
             elif isinstance(v, str):
-                value_ = value.replace(variable, v)
+                value_ = value_.replace(variable, v)
 
         return value_
 
