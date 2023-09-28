@@ -45,7 +45,7 @@ class PlaybookRead:
             )
 
     @staticmethod
-    def _coerce_string_value(value: bool | float | int | str) -> str:
+    def _coerce_string_value(value: bool | float | int | str | Sensitive) -> str | Sensitive:
         """Return a string value from an bool or int."""
         # coerce bool before int as python says a bool is an int
         if isinstance(value, bool):
@@ -473,7 +473,7 @@ class PlaybookRead:
         self,
         key: str,
         resolve_embedded: bool = True,
-    ) -> StringVariable | None:
+    ) -> Sensitive | str | None:
         """Read the value from key value store.
 
         The string write method serializes the string before writing to the key value store.
@@ -505,7 +505,7 @@ class PlaybookRead:
             data = self._read_embedded(data)
 
         # coerce data back to string, since technically TC doesn't support bool, int, etc
-        return StringVariable(self._coerce_string_value(data))
+        return self._coerce_string_value(data)
 
     def string_array(self, key: str) -> list[StringVariable] | None:
         """Read the value from key value store.
@@ -618,7 +618,9 @@ class PlaybookRead:
         # deserialize the data
         return self._deserialize_data(data)
 
-    def variable(self, key: str | None, array: bool = False) -> bytes | dict | list | str | None:
+    def variable(
+        self, key: str | None, array: bool = False
+    ) -> bytes | dict | list | str | Sensitive | None:
         """Read method of CRUD operation for working with KeyValue DB.
 
         This method will automatically check to see if a single variable is passed
