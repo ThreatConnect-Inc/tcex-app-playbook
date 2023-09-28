@@ -8,6 +8,7 @@ from collections import OrderedDict
 from typing import Any
 
 from ...app.key_value_store.key_value_store import KeyValueStore
+from ...input.field_type.sensitive import Sensitive
 from ...registry import registry
 from ...util.util import Util
 from ...util.variable import BinaryVariable, StringVariable
@@ -160,7 +161,7 @@ class PlaybookRead:
         string = re.sub(r'\\\\s', r'\\s', string)
         return string
 
-    def _read_embedded(self, value: str) -> str:
+    def _read_embedded(self, value: str) -> Sensitive | str:
         r"""Read method for "embedded" variables.
 
         .. Note:: The ``read()`` method will automatically determine if the input is a variable or
@@ -237,10 +238,20 @@ class PlaybookRead:
             # value.replace was chosen over re.sub due to an issue encountered while testing an app.
             # re.sub will handle escaped characters like \t, value.replace would not handle these
             # scenarios.
-            if isinstance(v, str):
+            if isinstance(v, Sensitive) and value == variable:
+                # handle when tc variables are embedded in a a playbook variable and the
+                # type is KeyChain. a Sensitive value needs to be returned so that the
+                # developer can control the output of the data, protecting the value.
+                # this is done when the variable is an exact match to the value.
+                value = v
+            elif isinstance(v, Sensitive):
+                # alternate to above this handles when tc variables is embedded in a string.
+                # this is NOT recommended, but still supported through this method.
+                value = value.replace(variable, v.value)
+            elif isinstance(v, str):
                 value = value.replace(variable, v)
 
-        return StringVariable(value)
+        return value
 
     @staticmethod
     def _to_array(value: list | str | None) -> list:
