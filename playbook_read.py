@@ -213,6 +213,7 @@ class PlaybookRead:
         if value is None:  # pragma: no cover
             return value
 
+        value_ = value
         for match in re.finditer(self.util.variable_expansion_pattern, str(value)):
             variable = match.group(0)  # the full variable pattern
             v = None
@@ -243,15 +244,15 @@ class PlaybookRead:
                 # type is KeyChain. a Sensitive value needs to be returned so that the
                 # developer can control the output of the data, protecting the value.
                 # this is done when the variable is an exact match to the value.
-                value = v
+                value_ = v
             elif isinstance(v, Sensitive):
                 # alternate to above this handles when tc variables is embedded in a string.
                 # this is NOT recommended, but still supported through this method.
-                value = value.replace(variable, v.value)
+                value_ = value.replace(variable, v.value)
             elif isinstance(v, str):
-                value = value.replace(variable, v)
+                value_ = value.replace(variable, v)
 
-        return value
+        return value_
 
     @staticmethod
     def _to_array(value: list | str | None) -> list:
