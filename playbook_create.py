@@ -9,7 +9,7 @@ from collections.abc import Callable, Iterable
 from typing import Any
 
 # third-party
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 from ...app.key_value_store import KeyValueRedis
 from ...app.key_value_store.key_value_store import KeyValueStore
