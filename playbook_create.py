@@ -169,7 +169,7 @@ class PlaybookCreate:
             # Support both Pydantic v1 and v2
             if hasattr(value, 'model_dump'):
                 # Pydantic v2
-                value = value.model_dump(exclude_unset=True)  # type: ignore
+                value = value.model_dump(exclude_unset=True)
             else:
                 # Pydantic v1
                 value = value.dict(exclude_unset=True)
