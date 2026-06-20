@@ -117,13 +117,16 @@ class AdvancedRequest:
         # configure params
         self.configure_params()
 
+        # coerce the HTTP method (EditChoice | None) to a plain str
+        method = str(self.model.tc_adv_req_http_method or 'GET')
+
         # make http request
         try:
             response = self.session.request(
                 allow_redirects=self.allow_redirects,
                 data=self.data,
                 headers=self.headers,
-                method=cast('str', self.model.tc_adv_req_http_method),
+                method=method,
                 params=self.params,
                 timeout=self.timeout,
                 url=self.model.tc_adv_req_path,
