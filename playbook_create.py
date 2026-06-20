@@ -167,12 +167,11 @@ class PlaybookCreate:
 
         if isinstance(value, BaseModel):
             # Support both Pydantic v1 and v2
-            if hasattr(value, 'model_dump'):
-                # Pydantic v2
-                value = value.model_dump(exclude_unset=True)
+            model_dump = getattr(value, 'model_dump', None)
+            if callable(model_dump):
+                value = model_dump(exclude_unset=True)  # Pydantic v2
             else:
-                # Pydantic v1
-                value = value.dict(exclude_unset=True)
+                value = value.dict(exclude_unset=True)  # Pydantic v1
 
         # due to the need to support pydantic v1 and v2, the type checker cannot determine
         # that value is a dict at this point.
